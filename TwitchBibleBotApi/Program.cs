@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using System.Net.Http;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +13,6 @@ app.MapGet("/randomverse", async () =>
     var json = JObject.Parse(response);
 
     var verseObj = json["random_verse"];
-
     var book = verseObj["book"]?.ToString();
     var chapter = verseObj["chapter"]?.ToString();
     var verse = verseObj["verse"]?.ToString();

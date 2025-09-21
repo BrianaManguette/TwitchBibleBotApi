@@ -10,13 +10,17 @@ var app = builder.Build();
 app.MapGet("/randomverse", async () =>
 {
     using var http = new HttpClient();
-    var response = await http.GetStringAsync("https://bible-api.com/?random");
+    var response = await http.GetStringAsync("https://bible-api.com/data/web/random");
     var json = JObject.Parse(response);
 
-    var reference = json["reference"]?.ToString();
-    var text = json["verses"]?[0]?["text"]?.ToString();
+    var verseObj = json["random_verse"];
 
-    return $"{reference} - {text}";
+    var book = verseObj["book"]?.ToString();
+    var chapter = verseObj["chapter"]?.ToString();
+    var verse = verseObj["verse"]?.ToString();
+    var text = verseObj["text"]?.ToString();
+
+    return $"{book} {chapter}:{verse} - {text}";
 });
 
 app.Run();
